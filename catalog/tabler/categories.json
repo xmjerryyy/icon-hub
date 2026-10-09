@@ -1,0 +1,371 @@
+[
+  {
+    "key": "animals",
+    "title_en": "Animals",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 1
+  },
+  {
+    "key": "arrows",
+    "title_en": "Arrows",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 2
+  },
+  {
+    "key": "badges",
+    "title_en": "Badges",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 3
+  },
+  {
+    "key": "brand",
+    "title_en": "Brand",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 4
+  },
+  {
+    "key": "buildings",
+    "title_en": "Buildings",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 5
+  },
+  {
+    "key": "charts",
+    "title_en": "Charts",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 6
+  },
+  {
+    "key": "communication",
+    "title_en": "Communication",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 7
+  },
+  {
+    "key": "computers",
+    "title_en": "Computers",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 8
+  },
+  {
+    "key": "currencies",
+    "title_en": "Currencies",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 9
+  },
+  {
+    "key": "database",
+    "title_en": "Database",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 10
+  },
+  {
+    "key": "design",
+    "title_en": "Design",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 11
+  },
+  {
+    "key": "development",
+    "title_en": "Development",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 12
+  },
+  {
+    "key": "devices",
+    "title_en": "Devices",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 13
+  },
+  {
+    "key": "document",
+    "title_en": "Document",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 14
+  },
+  {
+    "key": "e-commerce",
+    "title_en": "E-commerce",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 15
+  },
+  {
+    "key": "electrical",
+    "title_en": "Electrical",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 16
+  },
+  {
+    "key": "extensions",
+    "title_en": "Extensions",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 17
+  },
+  {
+    "key": "food",
+    "title_en": "Food",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 18
+  },
+  {
+    "key": "games",
+    "title_en": "Games",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 19
+  },
+  {
+    "key": "gender",
+    "title_en": "Gender",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 20
+  },
+  {
+    "key": "gestures",
+    "title_en": "Gestures",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 21
+  },
+  {
+    "key": "health",
+    "title_en": "Health",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 22
+  },
+  {
+    "key": "laundry",
+    "title_en": "Laundry",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 23
+  },
+  {
+    "key": "letters",
+    "title_en": "Letters",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 24
+  },
+  {
+    "key": "logic",
+    "title_en": "Logic",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 25
+  },
+  {
+    "key": "map",
+    "title_en": "Map",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 26
+  },
+  {
+    "key": "math",
+    "title_en": "Math",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 27
+  },
+  {
+    "key": "media",
+    "title_en": "Media",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 28
+  },
+  {
+    "key": "mood",
+    "title_en": "Mood",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 29
+  },
+  {
+    "key": "nature",
+    "title_en": "Nature",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 30
+  },
+  {
+    "key": "numbers",
+    "title_en": "Numbers",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 31
+  },
+  {
+    "key": "photography",
+    "title_en": "Photography",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 32
+  },
+  {
+    "key": "shapes",
+    "title_en": "Shapes",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 33
+  },
+  {
+    "key": "sport",
+    "title_en": "Sport",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 34
+  },
+  {
+    "key": "symbols",
+    "title_en": "Symbols",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 35
+  },
+  {
+    "key": "system",
+    "title_en": "System",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 36
+  },
+  {
+    "key": "text",
+    "title_en": "Text",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 37
+  },
+  {
+    "key": "vehicles",
+    "title_en": "Vehicles",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 38
+  },
+  {
+    "key": "version-control",
+    "title_en": "Version control",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 39
+  },
+  {
+    "key": "weather",
+    "title_en": "Weather",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 40
+  },
+  {
+    "key": "zodiac",
+    "title_en": "Zodiac",
+    "title_zh": null,
+    "description_en": "",
+    "description_zh": null,
+    "representative_icon": "",
+    "sort_order": 41
+  }
+]

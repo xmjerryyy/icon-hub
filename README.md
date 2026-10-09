@@ -5,9 +5,10 @@
 > **One SQLite database plus one offline browser for the scattered open-source icon libraries.**
 > Organised by each upstream's own categories and tags. Bilingual labels. Zero dependencies.
 
-![icons](https://img.shields.io/badge/icons-1%2C870-4f46e5)
-![categories](https://img.shields.io/badge/categories-42-4f46e5)
-![tags](https://img.shields.io/badge/tags-4%2C095-4f46e5)
+![icons](https://img.shields.io/badge/icons-8%2C108-4f46e5)
+![categories](https://img.shields.io/badge/categories-83-4f46e5)
+![tags](https://img.shields.io/badge/tags-9%2C321-4f46e5)
+![sources](https://img.shields.io/badge/sources-2-4f46e5)
 ![labels](https://img.shields.io/badge/labels-EN%20%7C%20%E4%B8%AD%E6%96%87-4f46e5)
 ![python](https://img.shields.io/badge/python-3.10%2B-3776AB)
 ![license](https://img.shields.io/badge/license-MIT%20%2B%20ISC-4f46e5)
@@ -33,9 +34,15 @@ Work with a few of them and you end up with a dozen bookmarks and no way to sear
 
 ### Included so far
 
-| Source | Icons | Categories | Tags | Aliases | License |
-|---|---:|---:|---:|---:|---|
-| **Lucide** | 1,870 | 42 | 4,095 | 264 | ISC |
+| Source | Icons | Categories | Aliases | License |
+|---|---:|---:|---:|---|
+| **Lucide** | 1,870 | 42 | 264 | ISC |
+| **Tabler Icons** | 6,238 | 41 | 66 | MIT |
+| **total** | **8,108** | **83** | **330** | — |
+
+> Tabler ships two styles: 5,184 `outline` icons with full metadata, plus 1,054 `filled` variants.
+> The filled set carries no category/tags upstream and duplicates outline names, so it is imported as
+> `<name>-filled` (matching Tabler's own `IconXxxFilled` naming), inheriting metadata from its outline twin.
 
 ---
 
@@ -78,13 +85,16 @@ index.html?cz=1&size=40&stroke=1&color=%23e11d48&nonscaling=1
 git clone https://github.com/xmjerryyy/icon-hub.git
 cd icon-hub
 
-# 0. First run only — fetch the upstream snapshot (~5.5 MB, unpacks to vendor/lucide-main/)
+# 0. First run only — fetch the upstream snapshots into vendor/ (~40 MB total)
 mkdir -p vendor && cd vendor
 curl -L -o lucide-main.tar.gz https://codeload.github.com/lucide-icons/lucide/tar.gz/refs/heads/main
-tar -xzf lucide-main.tar.gz && cd ..
+tar -xzf lucide-main.tar.gz
+curl -L -o tabler-main.tar.gz https://codeload.github.com/tabler/tabler-icons/tar.gz/refs/heads/main
+tar -xzf tabler-main.tar.gz && cd ..
 
-# 1. Upstream snapshot  → catalog/
+# 1. Upstream snapshots → catalog/   (one script per source)
 python scripts/fetch_lucide.py
+python scripts/fetch_tabler.py
 
 # 2. catalog/           → SQLite
 python scripts/build_db.py
@@ -117,7 +127,7 @@ icon-hub/
 ├── web/                   the browser UI (static, no dependencies)
 ├── data/icon-hub.db       SQLite database            (derived, not tracked)
 ├── web/data/*             front-end data             (derived, not tracked)
-├── vendor/                upstream snapshot, 120 MB+ (not tracked — see Quick start step 0)
+├── vendor/                upstream snapshots, large (not tracked — see Quick start step 0)
 ├── LICENSES.md            code license + per-source attribution obligations
 └── licenses/              verbatim upstream license texts
 ```
@@ -173,8 +183,18 @@ SELECT * FROM v_icons WHERE name = 'user';
 
 ## Translations
 
-English and Chinese are both **100% complete**: 42 categories (titles + descriptions) and
-4,095 tags. Chinese lives in `catalog/<source>/zh.json`:
+Chinese lives in `catalog/<source>/zh.json` — one file per source:
+
+| Source | Categories | Tags |
+|---|---|---|
+| Lucide | 42 (titles + descriptions) — complete | 4,095 — complete |
+| Tabler | 41 — complete | pending (5,226 new words) |
+
+**The tag vocabulary is shared across sources.** A tag that already exists in the database keeps its
+Chinese label, so adding a new source inherits translations for free — that is why 68% of Tabler's
+tag links came out already translated without any extra work.
+
+Format:
 
 ```json
 {
@@ -231,6 +251,9 @@ rather than in the database.
 
 ## Adding a new source
 
+> **This is no longer theoretical** — Tabler was added exactly this way, and neither the database
+> schema nor the UI logic needed changes for it to show up.
+
 The architecture is "one source, one directory". No database or UI code needs to change:
 
 1. Fetch the new library (npm package, GitHub snapshot, official JSON — whatever it ships)
@@ -252,10 +275,11 @@ Field names are fixed — everything downstream depends on them.
 
 ## Known limitations
 
+- **Tabler tags are not translated yet.** 5,226 of them are new vocabulary; the other 68% automatically reuse Lucide's Chinese labels (the tag table is shared across sources). Untranslated ones fall back to English
 - A few obscure terms were translated conservatively (`mistwarp` left as-is, `snake holder` rendered by meaning). Fix them in `zh.json` if you disagree
-- Aliases (264) are only visible in the detail drawer; there are no standalone cards for them
-- The grid renders all 1,870 results at once (~0.3 s first paint). More sources will require paging or virtual scrolling
-- `web/data/catalog.js` is a 1.4 MB generated file — never edit it by hand
+- Aliases (330) are only visible in the detail drawer; there are no standalone cards for them
+- The grid renders at most 800 cells at a time — narrow it down with search or a category
+- `web/data/catalog.js` is a 6 MB generated file — never edit it by hand
 
 ---
 

@@ -165,6 +165,32 @@ def build() -> int:
         return 1
 
     total_icons = total_tags = 0
+    tag_ids: dict[str, int] = {}
+    zh_conflicts: list[tuple[str, str, str]] = []
+
+    def tag_id(raw: str, zh_tags: dict) -> int:
+        """标签表是**跨源全局唯一**的：同名标签自动复用，两源共用同一条中文译文。
+
+        这是刻意设计 —— Lucide 已翻译的 4095 个标签，Tabler 里同名的部分直接命中，
+        不必重复翻译。先建者（Lucide）的译文优先，若后来的源给出不同译文则记录为冲突。
+        """
+        if raw in tag_ids:
+            return tag_ids[raw]
+        row = conn.execute("SELECT id, label_zh FROM tags WHERE key = ?", (raw,)).fetchone()
+        if row:
+            tid, old_zh = row[0], row[1]
+            new_zh = zh_tags.get(raw)
+            if new_zh and old_zh and new_zh != old_zh:
+                zh_conflicts.append((raw, old_zh, new_zh))
+            tag_ids[raw] = tid
+            return tid
+        cur = conn.execute(
+            "INSERT INTO tags (key, label_en, label_zh) VALUES (?,?,?)",
+            (raw, raw, zh_tags.get(raw)),
+        )
+        tag_ids[raw] = cur.lastrowid
+        return cur.lastrowid
+
     for sdir in source_dirs:
         src = read_json(sdir / "source.json")
         zh = load_zh_layer(sdir)
@@ -201,18 +227,7 @@ def build() -> int:
             )
             cat_ids[cat["key"]] = cur.lastrowid
 
-        # 标签词表
-        tag_ids: dict[str, int] = {}
-
-        def tag_id(raw: str) -> int:
-            if raw in tag_ids:
-                return tag_ids[raw]
-            cur = conn.execute(
-                "INSERT INTO tags (key, label_en, label_zh) VALUES (?,?,?)",
-                (raw, raw, zh["tags"].get(raw)),
-            )
-            tag_ids[raw] = cur.lastrowid
-            return tag_ids[raw]
+        # 标签词表：tag_id() 定义在源循环之外（跨源共享同一张表）
 
         # 图标
         lines = (sdir / "icons.jsonl").read_text(encoding="utf-8").splitlines()
@@ -246,7 +261,7 @@ def build() -> int:
                 )
 
             for raw in dict.fromkeys(ic.get("tags", [])):
-                tid = tag_id(raw)
+                tid = tag_id(raw, zh["tags"])
                 total_tags += 1
                 conn.execute(
                     "INSERT OR IGNORE INTO icon_tags (icon_id, tag_id) VALUES (?,?)",
@@ -307,6 +322,8 @@ def build() -> int:
     print(f"[ok] 别名        : {stats['aliases']}")
     print(f"[ok] 图标-标签关系: {total_tags}")
     print(f"[ok] 全文检索    : {fts}")
+    if zh_conflicts:
+        print(f"[!] 跨源译文冲突  : {len(zh_conflicts)} 条（保留先建者）→ {zh_conflicts[:3]}")
     print("[ok] 图标最多的分类: " + "、".join(f"{t}({n})" for t, n in top))
     print(f"[ok] 库文件大小  : {DB_PATH.stat().st_size / 1024:.0f} KB")
     return 0

@@ -1,0 +1,17 @@
+{
+  "key": "tabler",
+  "name_en": "Tabler Icons",
+  "name_zh": null,
+  "homepage": "https://tabler.io/icons",
+  "repo": "https://github.com/tabler/tabler-icons",
+  "license": "MIT",
+  "snapshot": "github:tabler/tabler-icons@main",
+  "version": "3.49.0",
+  "fetched_at": "2026-10-09T15:44:05+08:00",
+  "icon_count": 6238,
+  "category_count": 41,
+  "alias_count": 66,
+  "tag_vocabulary_size": 7597,
+  "uncategorized_icon_count": 0,
+  "notes": "outline 5184 个元数据完整；filled 1054 个上游无 category/tags，已按同名 outline 继承并加 `-filled` 后缀与 `filled` 标签"
+}

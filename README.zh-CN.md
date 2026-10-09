@@ -5,9 +5,10 @@
 > **把分散各处的开源图标库，整合成一份本地 SQLite 数据库 + 一个离线浏览界面。**
 > 按各上游自己的分类与标签组织，标签中英双语，零依赖。
 
-![icons](https://img.shields.io/badge/%E5%9B%BE%E6%A0%87-1%2C870-4f46e5)
-![categories](https://img.shields.io/badge/%E5%88%86%E7%B1%BB-42-4f46e5)
-![tags](https://img.shields.io/badge/%E6%A0%87%E7%AD%BE-4%2C095-4f46e5)
+![icons](https://img.shields.io/badge/%E5%9B%BE%E6%A0%87-8%2C108-4f46e5)
+![categories](https://img.shields.io/badge/%E5%88%86%E7%B1%BB-83-4f46e5)
+![tags](https://img.shields.io/badge/%E6%A0%87%E7%AD%BE-9%2C321-4f46e5)
+![sources](https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%BA%90-2-4f46e5)
 ![labels](https://img.shields.io/badge/%E6%A0%87%E7%AD%BE%E8%AF%AD%E8%A8%80-EN%20%7C%20%E4%B8%AD%E6%96%87-4f46e5)
 ![python](https://img.shields.io/badge/python-3.10%2B-3776AB)
 ![license](https://img.shields.io/badge/license-MIT%20%2B%20ISC-4f46e5)
@@ -33,9 +34,15 @@
 
 ### 目前收录
 
-| 源 | 图标 | 分类 | 标签 | 别名 | 许可 |
-|---|---:|---:|---:|---:|---|
-| **Lucide** | 1,870 | 42 | 4,095 | 264 | ISC |
+| 源 | 图标 | 分类 | 别名 | 许可 |
+|---|---:|---:|---:|---|
+| **Lucide** | 1,870 | 42 | 264 | ISC |
+| **Tabler 图标** | 6,238 | 41 | 66 | MIT |
+| **合计** | **8,108** | **83** | **330** | — |
+
+> Tabler 有两套风格：5,184 个 `outline`（元数据完整）＋ 1,054 个 `filled`。
+> filled 那套在上游没有分类和标签，且与 outline 同名，因此以 `<name>-filled` 形式导入
+> （与 Tabler 官方 `IconXxxFilled` 命名一致），元数据从同名 outline 图标继承。
 
 ---
 
@@ -78,13 +85,16 @@ index.html?cz=1&size=40&stroke=1&color=%23e11d48&nonscaling=1
 git clone https://github.com/xmjerryyy/icon-hub.git
 cd icon-hub
 
-# 0. 仅首次：下载上游快照（约 5.5 MB，解压到 vendor/lucide-main/）
+# 0. 仅首次：下载上游快照到 vendor/（合计约 40 MB）
 mkdir -p vendor && cd vendor
 curl -L -o lucide-main.tar.gz https://codeload.github.com/lucide-icons/lucide/tar.gz/refs/heads/main
-tar -xzf lucide-main.tar.gz && cd ..
+tar -xzf lucide-main.tar.gz
+curl -L -o tabler-main.tar.gz https://codeload.github.com/tabler/tabler-icons/tar.gz/refs/heads/main
+tar -xzf tabler-main.tar.gz && cd ..
 
-# 1. 上游快照 → catalog/
+# 1. 上游快照 → catalog/（一个源一个脚本）
 python scripts/fetch_lucide.py
+python scripts/fetch_tabler.py
 
 # 2. catalog/ → SQLite
 python scripts/build_db.py
@@ -117,7 +127,7 @@ icon-hub/
 ├── web/                   浏览界面（纯静态，无依赖）
 ├── data/icon-hub.db       SQLite 数据库        （派生物，不入库）
 ├── web/data/*             前端数据             （派生物，不入库）
-├── vendor/                上游快照，120 MB+    （不入库 —— 见快速开始第 0 步）
+├── vendor/                上游快照，体积大        （不入库 —— 见快速开始第 0 步）
 ├── LICENSES.md            代码许可 + 各源的署名义务
 └── licenses/              各上游许可原文
 ```
@@ -171,8 +181,17 @@ SELECT * FROM v_icons WHERE name = 'user';
 
 ## 翻译
 
-英文与中文**均已 100% 完成**：42 个分类（标题 + 描述）与 4,095 个标签。
-中文写在 `catalog/<源>/zh.json`：
+中文写在 `catalog/<源>/zh.json`，一个源一份：
+
+| 源 | 分类 | 标签 |
+|---|---|---|
+| Lucide | 42 个（含描述）—— 已完成 | 4,095 个 —— 已完成 |
+| Tabler | 41 个 —— 已完成 | 待补（5,226 个新词） |
+
+**标签词表是跨源共享的。** 数据库里已存在的标签会保留其中文译名，所以新增图标源时能白捡一批译文
+—— Tabler 有 68% 的标签关系就是这样自动获得中文的，没做任何额外工作。
+
+格式：
 
 ```json
 {
@@ -226,6 +245,8 @@ python scripts/fetch_lucide.py && python scripts/build_db.py && python scripts/e
 
 ## 接入新的图标源
 
+> **这条路已经被验证过了** —— Tabler 就是这么加进来的，而且**数据库结构和界面逻辑一行都没改**。
+
 架构是「一个源 = 一个目录」，不需要改数据库和界面代码：
 
 1. 把新库的数据抓下来（npm 包 / GitHub 快照 / 官方 JSON 都行）
@@ -247,10 +268,11 @@ python scripts/fetch_lucide.py && python scripts/build_db.py && python scripts/e
 
 ## 已知限制
 
+- **Tabler 的标签尚未翻译。** 其中 5,226 个是新词；另外 68% 自动复用了 Lucide 的中文译名（标签表跨源共享）。未翻译的回退显示英文
 - 少数冷门词做了保守翻译（`mistwarp` 保留原文、`snake holder` 按意译处理），不认同可直接改 `zh.json`
-- 别名（264 个）只能在详情抽屉里看到，没有独立卡片
-- 网格一次渲染全部 1,870 个结果（首屏约 0.3 秒）。源变多后需要分页或虚拟滚动
-- `web/data/catalog.js` 是 1.4 MB 的生成物，不要手工编辑
+- 别名（330 个）只能在详情抽屉里看到，没有独立卡片
+- 网格一次最多渲染 800 个，用搜索或分类缩小范围查看更多
+- `web/data/catalog.js` 是 6 MB 的生成物，不要手工编辑
 
 ---
 

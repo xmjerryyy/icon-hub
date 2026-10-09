@@ -18,6 +18,7 @@
       source: 'Source', tags: 'Tags', aliases: 'Aliases', meta: 'Meta',
       searchPh: 'Search by name, alias, tag… (press /)',
       results: function (n, total, q) { return n + ' / ' + total + ' icons' + (q ? ' · "' + q + '"' : ''); },
+      showing: function (n) { return 'showing first ' + n; },
       emptyTitle: 'No icons match', emptyHint: 'Try another keyword or clear the category filter.',
       copied: 'Copied to clipboard', copyFail: 'Copy failed — select manually',
       pending: 'translation pending', deprecated: 'deprecated',
@@ -33,6 +34,7 @@
       source: '来源', tags: '标签', aliases: '别名', meta: '信息',
       searchPh: '按名称 / 别名 / 标签搜索…（按 / 聚焦）',
       results: function (n, total, q) { return n + ' / ' + total + ' 个图标' + (q ? ' · "' + q + '"' : ''); },
+      showing: function (n) { return '仅显示前 ' + n + ' 个'; },
       emptyTitle: '没有匹配的图标', emptyHint: '换个关键词，或清除左侧分类筛选。',
       copied: '已复制到剪贴板', copyFail: '复制失败，请手动选择',
       pending: '待译', deprecated: '已废弃',
@@ -59,10 +61,15 @@
   };
 
   /* ---------- 索引 ---------- */
+  /** 图标的唯一标识 = 源 + 名。两源会有同名图标（user / settings / arrow-left…） */
+  function idOf(ic) { return ic.source + ':' + ic.name; }
+
   var byName = new Map();
-  DATA.icons.forEach(function (ic) { byName.set(ic.name, ic); });
+  DATA.icons.forEach(function (ic) { byName.set(idOf(ic), ic); });
+  function idOfCat(c) { return c.source + ':' + c.key; }
+
   var byCat = new Map();
-  DATA.categories.forEach(function (c) { byCat.set(c.key, c); });
+  DATA.categories.forEach(function (c) { byCat.set(idOfCat(c), c); });
   var byTag = new Map();
   DATA.tags.forEach(function (t) { byTag.set(t.key, t); });
 
@@ -112,12 +119,22 @@
   }
 
   /* ---------- 左栏分类 ---------- */
+  /** 分类的唯一标识 = 源 + key。两源可能有同名分类（animals/arrows/design…），只比 key 会跨源误命中 */
+  function catKey(c) { return c.source + ':' + c.key; }
+
   function renderCategories() {
-    var html = '';
-    html += catRow('__all__', t('all'), DATA.stats.icons);
-    html += '<div class="cat-sep">' + esc(t('sourceList')) + '</div>';
-    DATA.categories.slice().sort(function (a, b) { return a.order - b.order; }).forEach(function (c) {
-      html += catRow(c.key, localize(c.title), c.count);
+    var html = catRow('__all__', t('all'), DATA.stats.icons);
+    var multi = DATA.sources.length > 1;
+    DATA.sources.forEach(function (src) {
+      var cats = DATA.categories
+        .filter(function (c) { return c.source === src.key; })
+        .sort(function (a, b) { return a.order - b.order; });
+      if (!cats.length) return;
+      if (multi) {
+        html += '<div class="cat-sep">' + esc(localize(src.name)) +
+                '<span class="cat-num">' + cats.length + '</span></div>';
+      }
+      cats.forEach(function (c) { html += catRow(catKey(c), localize(c.title), c.count); });
     });
     catList.innerHTML = html;
     $('sideCount').textContent = DATA.categories.length;
@@ -162,8 +179,16 @@
     var words = q ? q.split(/\s+/) : [];
     var plans = words.map(function (w) { return { w: w, zh: zhHits(w) }; });
 
+    // 分类筛选用「源:key」复合键
+    var catSrc = null, catKeyName = null;
+    if (state.cat !== '__all__') {
+      var sep = state.cat.indexOf(':');
+      catSrc = state.cat.slice(0, sep);
+      catKeyName = state.cat.slice(sep + 1);
+    }
+
     return DATA.icons.filter(function (ic) {
-      if (state.cat !== '__all__' && ic.categories.indexOf(state.cat) === -1) return false;
+      if (catSrc && (ic.source !== catSrc || ic.categories.indexOf(catKeyName) === -1)) return false;
       if (!plans.length) return true;
       var hay = (ic.name + ' ' + ic.aliases.join(' ') + ' ' + ic.tags.join(' ') + ' ' + ic.categories.join(' ')).toLowerCase();
       return plans.every(function (p) {
@@ -175,9 +200,15 @@
     });
   }
 
+  var RENDER_LIMIT = 800;   // 首屏最多渲染多少个；超出靠搜索/分类缩小范围
+
   function renderGrid() {
     var list = filtered();
-    $('resultInfo').textContent = t('results')(list.length, DATA.stats.icons, state.q.trim());
+    var shown = list.length > RENDER_LIMIT ? list.slice(0, RENDER_LIMIT) : list;
+    var q = state.q.trim();
+    $('resultInfo').textContent = t('results')(list.length, DATA.stats.icons, q) +
+      (shown.length < list.length ? ' · ' + t('showing')(shown.length) : '');
+
     if (!list.length) {
       grid.innerHTML = '';
       empty.hidden = false;
@@ -187,19 +218,23 @@
     }
     empty.hidden = true;
 
+    var multi = DATA.sources.length > 1;
     var tip = function (ic) {
-      var parts = [ic.name];
+      var parts = [ic.source + ' · ' + ic.name];
       if (ic.tags.length) parts.push('tags: ' + ic.tags.join(', '));
       if (ic.aliases.length) parts.push('aliases: ' + ic.aliases.join(', '));
       return parts.join('  |  ');
     };
 
     var html = '';
-    for (var i = 0; i < list.length; i++) {
-      var ic = list[i];
-      html += '<button class="cell' + (state.active === ic.name ? ' on' : '') + '" data-name="' + esc(ic.name) + '" title="' + esc(tip(ic)) + '">' +
+    for (var i = 0; i < shown.length; i++) {
+      var ic = shown[i];
+      html += '<button class="cell' + (state.active === idOf(ic) ? ' on' : '') +
+        '" data-name="' + esc(idOf(ic)) + '" title="' + esc(tip(ic)) + '">' +
         '<span class="cell-icon">' + ic.svg + '</span>' +
-        '<span class="cell-name">' + esc(ic.name) + '</span></button>';
+        '<span class="cell-name">' + esc(ic.name) + '</span>' +
+        (multi ? '<span class="cell-src">' + esc(ic.source) + '</span>' : '') +
+        '</button>';
     }
     grid.innerHTML = html;
   }
@@ -244,8 +279,8 @@
       : '';
 
     $('dCats').innerHTML = ic.categories.map(function (k) {
-      var c = byCat.get(k);
-      return c ? chip(localize(c.title), 'cat', k, isPending(c.title)) : '';
+      var c = byCat.get(ic.source + ':' + k);
+      return c ? chip(localize(c.title), 'cat', idOfCat(c), isPending(c.title)) : '';
     }).join('') || '<span class="muted">—</span>';
 
     $('dTags').innerHTML = ic.tags.slice().sort().map(function (k) {
@@ -261,12 +296,11 @@
       $('dAliasRow').hidden = true;
     }
 
+    var pcat = ic.primaryCategory ? byCat.get(ic.source + ':' + ic.primaryCategory) : null;
     $('dMeta').innerHTML =
       esc(ic.source) + ' · ' + t('metaText')(ic.bytes) +
       (ic.deprecated ? ' · <strong>' + esc(t('deprecated')) + '</strong>' : '') +
-      (ic.primaryCategory && byCat.get(ic.primaryCategory)
-        ? ' · ' + esc(localize(byCat.get(ic.primaryCategory).title))
-        : '');
+      (pcat ? ' · ' + esc(localize(pcat.title)) : '');
   }
 
   function openDetail(name) {
@@ -574,7 +608,13 @@
     $('clearSearch').hidden = false;
   }
   var pc = params.get('cat');
-  if (pc && (pc === '__all__' || byCat.has(pc))) state.cat = pc;
+  if (pc === '__all__') {
+    state.cat = '__all__';
+  } else if (pc) {
+    // 旧链接 ?cat=animals 默认指第一个源；新链接用 ?cat=lucide:animals
+    if (pc.indexOf(':') === -1) pc = (DATA.sources[0] ? DATA.sources[0].key : '') + ':' + pc;
+    if (byCat.has(pc)) state.cat = pc;
+  }
 
   loadCz();
   renderChrome();
@@ -584,10 +624,14 @@
   bind();
 
   var pi = params.get('icon');
-  if (pi && byName.has(pi)) {
-    var cell = grid.querySelector('.cell[data-name="' + pi + '"]');
-    if (cell) cell.classList.add('on');
-    openDetail(pi);
+  if (pi) {
+    // 同上：?icon=user 默认指第一个源，?icon=tabler:user 指明确源
+    if (pi.indexOf(':') === -1) pi = (DATA.sources[0] ? DATA.sources[0].key : '') + ':' + pi;
+    if (byName.has(pi)) {
+      var cell = grid.querySelector('.cell[data-name="' + pi + '"]');
+      if (cell) cell.classList.add('on');
+      openDetail(pi);
+    }
   }
 
   // URL 覆盖自定义外观：?size=40&stroke=1.5&color=%23e11d48&nonscaling=1&cz=1

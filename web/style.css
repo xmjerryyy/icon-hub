@@ -140,7 +140,15 @@ input { font: inherit; }
 .cat-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cat-num { font-size: 11px; font-variant-numeric: tabular-nums; color: var(--text-faint); }
 .cat.on .cat-num { color: var(--accent); }
-.cat-sep { margin: 12px 8px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); }
+.cat-sep {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+  margin: 14px 8px 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-faint);
+}
 
 .content { flex: 1; min-width: 0; padding: 16px 20px 60px; }
 
@@ -179,10 +187,12 @@ input { font: inherit; }
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .cell.on .cell-name { color: var(--accent); }
-.cell-badge {
-  font-size: 9px; padding: 1px 4px; border-radius: 4px;
-  background: var(--bg-soft); color: var(--text-faint);
+.cell-src {
+  font-size: 9px; line-height: 1;
+  letter-spacing: .03em;
+  color: var(--text-faint);
 }
+.cell.on .cell-src { color: var(--accent); opacity: .7; }
 
 .empty { padding: 80px 20px; text-align: center; color: var(--text-muted); }
 

@@ -113,9 +113,9 @@ def main() -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     body = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
 
-    (OUT_DIR / "catalog.json").write_text(body, encoding="utf-8")
+    (OUT_DIR / "catalog.json").write_text(body, encoding="utf-8", newline="\n")
     (OUT_DIR / "catalog.js").write_text(
-        "window.ICON_HUB = " + body + ";\n", encoding="utf-8"
+        "window.ICON_HUB = " + body + ";\n", encoding="utf-8", newline="\n"
     )
 
     size_kb = (OUT_DIR / "catalog.js").stat().st_size / 1024

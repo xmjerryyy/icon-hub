@@ -89,7 +89,11 @@ def main() -> int:
         return 0
 
     out = SRC / "zh.json"
-    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    out.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
     print(f"[ok] 写入 {out}（{out.stat().st_size / 1024:.0f} KB）")
     return 0
 

@@ -50,8 +50,11 @@ def read_json(path: Path):
 
 def write_json(path: Path, data) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    # newline="\n"：强制 LF，避免 Windows 下写出 CRLF 让每次重建都产生整文件 diff
     path.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
 
 
@@ -125,7 +128,9 @@ def main() -> int:
         )
 
     lines = [json.dumps(ic, ensure_ascii=False) for ic in icons]
-    (OUT_CATALOG / "icons.jsonl").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (OUT_CATALOG / "icons.jsonl").write_text(
+        "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+    )
 
     # ---------- 3. 源元信息 ----------
     category_keys = {c["key"] for c in categories}

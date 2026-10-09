@@ -251,8 +251,10 @@ rather than in the database.
 
 ## Adding a new source
 
-> **This is no longer theoretical** — Tabler was added exactly this way, and neither the database
-> schema nor the UI logic needed changes for it to show up.
+> **This is no longer theoretical** — Tabler was added exactly this way. The database schema needed
+> **no change at all**; the UI needed a small one, because **category keys and icon names collide
+> across sources** (`animals`, `design`, `user`…). Filtering now uses `source:key` composite keys.
+> That is the honest picture: **adding a source is a data job, but multi-source coexistence is a UI concern.**
 
 The architecture is "one source, one directory". No database or UI code needs to change:
 

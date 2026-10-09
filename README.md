@@ -187,12 +187,13 @@ Chinese lives in `catalog/<source>/zh.json` — one file per source:
 
 | Source | Categories | Tags |
 |---|---|---|
-| Lucide | 42 (titles + descriptions) — complete | 4,095 — complete |
-| Tabler | 41 — complete | pending (5,226 new words) |
+| Lucide | 42 (titles + descriptions) | 4,095 |
+| Tabler | 41 | 5,226 |
+| **total** | **83 — complete** | **9,321 — complete** |
 
-**The tag vocabulary is shared across sources.** A tag that already exists in the database keeps its
-Chinese label, so adding a new source inherits translations for free — that is why 68% of Tabler's
-tag links came out already translated without any extra work.
+**The tag vocabulary is shared across sources.** A tag that already exists keeps its Chinese label,
+so a new source inherits translations for free — 68% of Tabler's tag links were already translated
+before any Tabler-specific work began.
 
 Format:
 
@@ -277,7 +278,6 @@ Field names are fixed — everything downstream depends on them.
 
 ## Known limitations
 
-- **Tabler tags are not translated yet.** 5,226 of them are new vocabulary; the other 68% automatically reuse Lucide's Chinese labels (the tag table is shared across sources). Untranslated ones fall back to English
 - A few obscure terms were translated conservatively (`mistwarp` left as-is, `snake holder` rendered by meaning). Fix them in `zh.json` if you disagree
 - Aliases (330) are only visible in the detail drawer; there are no standalone cards for them
 - The grid renders at most 800 cells at a time — narrow it down with search or a category

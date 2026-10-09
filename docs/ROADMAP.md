@@ -46,55 +46,45 @@
 
 ---
 
-## 二、Icon Hub Skill（方案已定，待开发）
+## 二、Icon Hub Skill ✅ 已完成（2026-10-09）
 
 **目标**：别人装一个 skill，就能用自然语言找图标 —— 例如"给这个页面配几个表示上传、删除的图标"，
 AI 直接给出图标名与 SVG，不需要记各库的分类和命名。
 
-### 已拍板的技术决策
+### 已交付
+
+| 文件 | 作用 |
+|---|---|
+| `skill/SKILL.md` | 触发条件（含「不该触发」）+ 用法 + 6 条使用建议 |
+| `skill/scripts/query.py` | 检索接口：中英关键词 / 源 / 分类 / 风格筛选 / 取 SVG / 统计 |
+| `skill/scripts/install.py` | 生成自包含数据 + 安装到 `~/.workbuddy/skills/icon-hub/` |
+| `skill/data/icon-hub.db` | 生成物（10.5 MB，**内联全部 8108 个 SVG**），不入库 |
+
+安装：`python skill/scripts/install.py`
+
+### 最终技术决策
 
 | 决策 | 结论 | 理由 |
 |---|---|---|
-| **数据形态** | ✅ **skill 自带完整 SVG** | 不依赖网络，也不要求别人先 clone 本仓库 |
-| **数据来源** | 从 `web/data/catalog.json` 打包（全量内联 SVG，约 1.4 MB） | 现成产物，零额外加工 |
-| **运行方式** | 本地脚本查询，不发网络请求 | 离线可靠、零延迟 |
-| **依赖** | Python 标准库（`sqlite3` / `json`） | 不要求装包 |
+| **数据形态** | ✅ **自带完整 SVG**（内联进 SQLite） | 不依赖仓库目录、不联网，安装后即可独立运行 |
+| **数据来源** | 从 `data/icon-hub.db` 复制并 `ALTER TABLE icons ADD COLUMN svg` | 复用已有索引与结构，零重复开发 |
+| **依赖** | Python 标准库（sqlite3 / json / argparse） | 不要求装包 |
+| **匹配策略** | 标签分「精确命中 +45 / 包含 +12」两档 | 否则「关闭」会被「关闭字幕」等复合标签淹没 |
 
-### 形态
+### 实测
 
-```
-icon-hub-skill/
-├── SKILL.md            触发条件 + 调用方式
-├── scripts/query.py    查询接口：中英关键词 / 分类 / 标签筛选
-└── data/catalog.json   打包进去的完整数据（含全部 SVG）
-```
-
-### 为什么不设计成联网取数（重要，别再讨论一遍）
-
-本机（AI 沙箱）实测域名可达性：
-
-| 域名 | 状态 |
+| 输入 | 结果 |
 |---|---|
-| `raw.githubusercontent.com` | ❌ 不通 |
-| `api.github.com` | ❌ 不通 |
-| `github.com` | ❌ 不通 |
-| `cdn.jsdelivr.net` | ✅ 通（可代理 GitHub 仓库文件） |
-| `codeload.github.com` | ✅ 通（整包 tar.gz） |
+| `query.py "关闭"` | 首选 `lucide:x` ✓ |
+| `query.py arrow left` | 首选 `arrow-left` ✓ |
+| `query.py --category brand --source tabler` | 411 个品牌图标 ✓ |
+| `query.py --get x --source lucide --svg` | 返回完整 SVG 源码 ✓（安装后仍可用，验证自包含） |
 
-所以"运行时去 GitHub 拉数据"在沙箱里做不到；而别人机器网络环境也不确定。
-**自带数据是唯一稳的方案。**
+### 待办（分发，尚未做）
 
-> 如果以后要加"检查数据更新"，走 jsdelivr 而不是 raw 直链：
-> `https://cdn.jsdelivr.net/gh/xmjerryyy/icon-hub@<commit>/catalog/lucide/source.json`
-> （用 commit hash 而不是 `@main`，避开 CDN 缓存）
-
-### 待办清单
-
-- [ ] `query.py`：支持中英关键词、分类筛选、标签筛选；输出 名称 / 分类 / 标签 / SVG
-- [ ] 数据打包脚本：从 `web/data/catalog.json` 生成 skill 用的数据文件
-- [ ] `SKILL.md`：写清**触发条件**（找图标 / 选图标 / 这个界面配什么图标 / 有没有表示 XX 的图标）
-- [ ] 分发：提交到 WorkBuddy skill 市场，或 GitHub 仓库 + 手动安装说明
-- [ ] 触发描述要覆盖中英文提问方式（用户可能用中文问，也可能用英文问）
+- [ ] 提交到 WorkBuddy skill 市场，让别人一句话就能装
+- [ ] 或在 README 里补一节「手动安装」说明（拷贝 `skill/` 到 `~/.workbuddy/skills/icon-hub/`）
+- [ ] 中文提问方式也写进 `description`（现在中英触发词都有了，可再补几个口语说法）
 
 ---
 

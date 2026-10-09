@@ -270,6 +270,25 @@ python scripts/fetch_lucide.py && python scripts/build_db.py && python scripts/e
 
 ---
 
+## 让 AI 助手直接用（skill）
+
+仓库自带一个 **Agent Skill**，AI 可以用自然语言检索图标、直接给出可粘贴的 SVG，不用开浏览器。
+
+```bash
+python skill/scripts/install.py      # 生成自包含数据 + 安装到 ~/.workbuddy/skills/
+```
+
+| | |
+|---|---|
+| 搜索 | `query.py "关闭"` · `query.py arrow left` · `--source tabler` · `--category brand` · `--style filled` |
+| 取 SVG | `query.py --get x --source lucide --svg` |
+| 探索 | `--stats` · `--list-sources` · `--list-categories` |
+
+skill 的数据文件内联了全部 8,108 个 SVG（10.5 MB），**完全离线运行**，也不依赖仓库其他目录。
+详见 [`skill/SKILL.md`](skill/SKILL.md)。
+
+---
+
 ## 已知限制
 
 - 少数冷门词做了保守翻译（`mistwarp` 保留原文、`snake holder` 按意译处理），不认同可直接改 `zh.json`

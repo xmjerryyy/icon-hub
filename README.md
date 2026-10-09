@@ -276,6 +276,26 @@ Field names are fixed — everything downstream depends on them.
 
 ---
 
+## Use it from your AI assistant (skill)
+
+The repository ships an **Agent Skill** so an AI assistant can search the library in natural
+language and hand back ready-to-paste SVG — no browser needed.
+
+```bash
+python skill/scripts/install.py      # build self-contained data + install to ~/.workbuddy/skills/
+```
+
+| | |
+|---|---|
+| Search | `query.py "关闭"` · `query.py arrow left` · `--source tabler` · `--category brand` · `--style filled` |
+| Fetch SVG | `query.py --get x --source lucide --svg` |
+| Explore | `--stats` · `--list-sources` · `--list-categories` |
+
+The skill's data file inlines all 8,108 SVGs (10.5 MB), so it runs **completely offline** and
+does not depend on the rest of the repository. See [`skill/SKILL.md`](skill/SKILL.md).
+
+---
+
 ## Known limitations
 
 - A few obscure terms were translated conservatively (`mistwarp` left as-is, `snake holder` rendered by meaning). Fix them in `zh.json` if you disagree

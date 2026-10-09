@@ -9,6 +9,9 @@ vendor/
 # ---------- 本地项目记忆：含本机路径与个人上下文，只在本机使用，不上传 ----------
 PROJECT_MEMORY.md
 
+# ---------- skill 自带数据：由 skill/scripts/install.py 生成，不入库 ----------
+skill/data/*.db
+
 # ---------- 本地验收截图 ----------
 _verify/
 

@@ -1,0 +1,16 @@
+{
+  "key": "lucide",
+  "name_en": "Lucide",
+  "name_zh": null,
+  "homepage": "https://lucide.dev",
+  "repo": "https://github.com/lucide-icons/lucide",
+  "license": "ISC",
+  "version": "main",
+  "snapshot": "github:lucide-icons/lucide@main",
+  "fetched_at": "2026-10-08T18:00:19+08:00",
+  "icon_count": 1870,
+  "category_count": 42,
+  "alias_count": 264,
+  "tag_vocabulary_size": 4095,
+  "uncategorized_icon_count": 0
+}

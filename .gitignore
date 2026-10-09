@@ -1,0 +1,25 @@
+# ---------- 派生产物：可由 catalog/ 重建，不入库 ----------
+data/*.db
+web/data/catalog.js
+web/data/catalog.json
+
+# ---------- 上游快照：体积 120M+，用 README「更新上游」里的 curl 重新下载 ----------
+vendor/
+
+# ---------- 本地项目记忆：含本机路径与个人上下文，只在本机使用，不上传 ----------
+PROJECT_MEMORY.md
+
+# ---------- 本地验收截图 ----------
+_verify/
+
+# ---------- 翻译工作区里的自动生成清单（译文 *.out.txt 要保留，*.in.txt 可再生）----------
+catalog/*/_zh_work/*.in.txt
+
+# ---------- 杂项 ----------
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log

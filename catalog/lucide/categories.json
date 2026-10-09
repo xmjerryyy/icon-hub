@@ -1,0 +1,380 @@
+[
+  {
+    "key": "accessibility",
+    "title_en": "Accessibility",
+    "title_zh": null,
+    "description_en": "Icons for accessibility, visibility, hearing, speech, and inclusive UI affordances.",
+    "description_zh": null,
+    "representative_icon": "accessibility",
+    "sort_order": 1
+  },
+  {
+    "key": "account",
+    "title_en": "Accounts & access",
+    "title_zh": null,
+    "description_en": "Icons for user profiles, identity, settings, memberships, and personal account actions.",
+    "description_zh": null,
+    "representative_icon": "user",
+    "sort_order": 2
+  },
+  {
+    "key": "animals",
+    "title_en": "Animals",
+    "title_zh": null,
+    "description_en": "Icons for animals, wildlife, pets, insects, and other living creatures.",
+    "description_zh": null,
+    "representative_icon": "dog",
+    "sort_order": 3
+  },
+  {
+    "key": "arrows",
+    "title_en": "Arrows",
+    "title_zh": null,
+    "description_en": "Icons for directional arrows, movement, sorting, transfer, and navigation flows.",
+    "description_zh": null,
+    "representative_icon": "arrow-left-right",
+    "sort_order": 4
+  },
+  {
+    "key": "buildings",
+    "title_en": "Buildings",
+    "title_zh": null,
+    "description_en": "Icons for buildings, landmarks, houses, infrastructure, and built environments.",
+    "description_zh": null,
+    "representative_icon": "building",
+    "sort_order": 5
+  },
+  {
+    "key": "charts",
+    "title_en": "Charts",
+    "title_zh": null,
+    "description_en": "Icons for charts, graphs, trends, analytics, and data visualization.",
+    "description_zh": null,
+    "representative_icon": "chart-pie",
+    "sort_order": 6
+  },
+  {
+    "key": "communication",
+    "title_en": "Communication",
+    "title_zh": null,
+    "description_en": "Icons for speaking, listening, calling, messaging, broadcasting, and communication devices.",
+    "description_zh": null,
+    "representative_icon": "message-circle",
+    "sort_order": 7
+  },
+  {
+    "key": "connectivity",
+    "title_en": "Connectivity",
+    "title_zh": null,
+    "description_en": "Icons for wireless signals, wired connections, networks, device pairing, and data transfer.",
+    "description_zh": null,
+    "representative_icon": "wifi",
+    "sort_order": 8
+  },
+  {
+    "key": "cursors",
+    "title_en": "Cursors",
+    "title_zh": null,
+    "description_en": "Icons for cursors, pointers, selection tools, and loading states.",
+    "description_zh": null,
+    "representative_icon": "mouse-pointer-2",
+    "sort_order": 9
+  },
+  {
+    "key": "design",
+    "title_en": "Design",
+    "title_zh": null,
+    "description_en": "Icons for design tools, layout controls, creative editing, and visual composition.",
+    "description_zh": null,
+    "representative_icon": "palette",
+    "sort_order": 10
+  },
+  {
+    "key": "development",
+    "title_en": "Coding & development",
+    "title_zh": null,
+    "description_en": "Icons for code, logic, data structures, automation, and software development workflows.",
+    "description_zh": null,
+    "representative_icon": "code-xml",
+    "sort_order": 11
+  },
+  {
+    "key": "devices",
+    "title_en": "Devices",
+    "title_zh": null,
+    "description_en": "Icons for hardware, electronics, computers, peripherals, and connected devices.",
+    "description_zh": null,
+    "representative_icon": "smartphone",
+    "sort_order": 12
+  },
+  {
+    "key": "emoji",
+    "title_en": "Emoji",
+    "title_zh": null,
+    "description_en": "Icons for expressive symbols, faces, gestures, hearts, stars, and zodiac signs.",
+    "description_zh": null,
+    "representative_icon": "face-slightly-smiling",
+    "sort_order": 13
+  },
+  {
+    "key": "files",
+    "title_en": "File icons",
+    "title_zh": null,
+    "description_en": "Icons for files, folders, storage, import and export, and document-related actions.",
+    "description_zh": null,
+    "representative_icon": "panels-top-left",
+    "sort_order": 14
+  },
+  {
+    "key": "finance",
+    "title_en": "Finance",
+    "title_zh": null,
+    "description_en": "Icons for money, pricing, payments, currencies, banking, and financial trends.",
+    "description_zh": null,
+    "representative_icon": "piggy-bank",
+    "sort_order": 15
+  },
+  {
+    "key": "food-beverage",
+    "title_en": "Food & beverage",
+    "title_zh": null,
+    "description_en": "Icons for food, drinks, cooking, ingredients, dining, and kitchen items.",
+    "description_zh": null,
+    "representative_icon": "coffee",
+    "sort_order": 16
+  },
+  {
+    "key": "gaming",
+    "title_en": "Gaming",
+    "title_zh": null,
+    "description_en": "Icons for games, fantasy items, strategy pieces, achievements, and play-related objects.",
+    "description_zh": null,
+    "representative_icon": "gamepad-2",
+    "sort_order": 17
+  },
+  {
+    "key": "home",
+    "title_en": "Home",
+    "title_zh": null,
+    "description_en": "Icons for household spaces, furniture, appliances, utilities, cleaning, and home safety.",
+    "description_zh": null,
+    "representative_icon": "house",
+    "sort_order": 18
+  },
+  {
+    "key": "layout",
+    "title_en": "Layout",
+    "title_zh": null,
+    "description_en": "Icons for alignment, spacing, resizing, grouping, and interface layout structure.",
+    "description_zh": null,
+    "representative_icon": "panels-top-left",
+    "sort_order": 19
+  },
+  {
+    "key": "mail",
+    "title_en": "Mail",
+    "title_zh": null,
+    "description_en": "Icons for mailboxes, inboxes, sending, replies, attachments, and email management.",
+    "description_zh": null,
+    "representative_icon": "mail",
+    "sort_order": 20
+  },
+  {
+    "key": "math",
+    "title_en": "Mathematics",
+    "title_zh": null,
+    "description_en": "Icons for math symbols, geometry, measurement, arithmetic, and calculation.",
+    "description_zh": null,
+    "representative_icon": "divide",
+    "sort_order": 21
+  },
+  {
+    "key": "medical",
+    "title_en": "Medical",
+    "title_zh": null,
+    "description_en": "Icons for healthcare, anatomy, treatment, diagnostics, wellness, and medical facilities.",
+    "description_zh": null,
+    "representative_icon": "heart",
+    "sort_order": 22
+  },
+  {
+    "key": "multimedia",
+    "title_en": "Multimedia",
+    "title_zh": null,
+    "description_en": "Icons for audio, video, playback, recording, broadcasting, and media libraries.",
+    "description_zh": null,
+    "representative_icon": "circle-play",
+    "sort_order": 23
+  },
+  {
+    "key": "nature",
+    "title_en": "Nature",
+    "title_zh": null,
+    "description_en": "Icons for plants, trees, landscapes, camping, and the natural world.",
+    "description_zh": null,
+    "representative_icon": "sprout",
+    "sort_order": 24
+  },
+  {
+    "key": "navigation",
+    "title_en": "Navigation & Places",
+    "title_zh": null,
+    "description_en": "Icons for maps, locations, landmarks, routes, travel directions, and wayfinding.",
+    "description_zh": null,
+    "representative_icon": "compass",
+    "sort_order": 25
+  },
+  {
+    "key": "notifications",
+    "title_en": "Notifications",
+    "title_zh": null,
+    "description_en": "Icons for alerts, status updates, reminders, approvals, and attention states.",
+    "description_zh": null,
+    "representative_icon": "triangle-alert",
+    "sort_order": 26
+  },
+  {
+    "key": "people",
+    "title_en": "People",
+    "title_zh": null,
+    "description_en": "Icons for people, groups, identities, roles, and person-centered actions.",
+    "description_zh": null,
+    "representative_icon": "person-standing",
+    "sort_order": 27
+  },
+  {
+    "key": "photography",
+    "title_en": "Photography",
+    "title_zh": null,
+    "description_en": "Icons for cameras, images, framing, viewing, editing, and photo workflows.",
+    "description_zh": null,
+    "representative_icon": "camera",
+    "sort_order": 28
+  },
+  {
+    "key": "science",
+    "title_en": "Science",
+    "title_zh": null,
+    "description_en": "Icons for science, research, experiments, instruments, formulas, and discovery.",
+    "description_zh": null,
+    "representative_icon": "flask-conical",
+    "sort_order": 29
+  },
+  {
+    "key": "seasons",
+    "title_en": "Seasons",
+    "title_zh": null,
+    "description_en": "Icons for seasonal weather, blooming plants, sunlight, and changing times of year.",
+    "description_zh": null,
+    "representative_icon": "leaf",
+    "sort_order": 30
+  },
+  {
+    "key": "security",
+    "title_en": "Security",
+    "title_zh": null,
+    "description_en": "Icons for locks, keys, identity checks, surveillance, protection, and secure access.",
+    "description_zh": null,
+    "representative_icon": "shield",
+    "sort_order": 31
+  },
+  {
+    "key": "shapes",
+    "title_en": "Shapes",
+    "title_zh": null,
+    "description_en": "Icons for basic geometric shapes and symbols.",
+    "description_zh": null,
+    "representative_icon": "triangle",
+    "sort_order": 32
+  },
+  {
+    "key": "shopping",
+    "title_en": "Shopping",
+    "title_zh": null,
+    "description_en": "Icons for retail, carts, bags, checkout, barcodes, and purchasing.",
+    "description_zh": null,
+    "representative_icon": "shopping-bag",
+    "sort_order": 33
+  },
+  {
+    "key": "social",
+    "title_en": "Social",
+    "title_zh": null,
+    "description_en": "Icons for social interaction, reactions, sharing, community, and relationship signals.",
+    "description_zh": null,
+    "representative_icon": "thumbs-up",
+    "sort_order": 34
+  },
+  {
+    "key": "sports",
+    "title_en": "Sports",
+    "title_zh": null,
+    "description_en": "Icons for sports, fitness, competition, equipment, and athletic achievement.",
+    "description_zh": null,
+    "representative_icon": "trophy",
+    "sort_order": 35
+  },
+  {
+    "key": "sustainability",
+    "title_en": "Sustainability",
+    "title_zh": null,
+    "description_en": "Icons for sustainability, clean energy, recycling, nature, and environmental stewardship.",
+    "description_zh": null,
+    "representative_icon": "recycle",
+    "sort_order": 36
+  },
+  {
+    "key": "text",
+    "title_en": "Text formatting",
+    "title_zh": null,
+    "description_en": "Icons for letters, typography, formatting, reading, writing, and text structure.",
+    "description_zh": null,
+    "representative_icon": "type",
+    "sort_order": 37
+  },
+  {
+    "key": "time",
+    "title_en": "Time & calendar",
+    "title_zh": null,
+    "description_en": "Icons for clocks, calendars, schedules, history, timers, and time tracking.",
+    "description_zh": null,
+    "representative_icon": "calendar",
+    "sort_order": 38
+  },
+  {
+    "key": "tools",
+    "title_en": "Tools",
+    "title_zh": null,
+    "description_en": "Icons for hand tools, equipment, maintenance, repair, and making things.",
+    "description_zh": null,
+    "representative_icon": "hammer",
+    "sort_order": 39
+  },
+  {
+    "key": "transportation",
+    "title_en": "Transportation",
+    "title_zh": null,
+    "description_en": "Icons for vehicles, transit, cargo, parking, fuel, and moving people or goods.",
+    "description_zh": null,
+    "representative_icon": "train-front",
+    "sort_order": 40
+  },
+  {
+    "key": "travel",
+    "title_en": "Travel",
+    "title_zh": null,
+    "description_en": "Icons for travel, lodging, luggage, destinations, trip planning, and tourism.",
+    "description_zh": null,
+    "representative_icon": "backpack",
+    "sort_order": 41
+  },
+  {
+    "key": "weather",
+    "title_en": "Weather",
+    "title_zh": null,
+    "description_en": "Icons for clouds, sun, rain, wind, temperature, and weather conditions.",
+    "description_zh": null,
+    "representative_icon": "cloud-sun",
+    "sort_order": 42
+  }
+]

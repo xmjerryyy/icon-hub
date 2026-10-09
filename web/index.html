@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Icon Hub · 本地图标库</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">IH</div>
+    <div class="brand-text">
+      <strong>Icon Hub</strong>
+      <span id="brandStats" class="muted"></span>
+    </div>
+  </div>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Search icons…">
+    <button id="clearSearch" class="icon-btn" hidden title="Clear">×</button>
+  </div>
+
+  <div class="topbar-right">
+    <div class="seg" id="langSwitch" role="group" aria-label="Language">
+      <button data-lang="en" class="on">EN</button>
+      <button data-lang="zh">中文</button>
+    </div>
+    <button id="menuBtn" class="icon-btn only-narrow" title="Categories">☰</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-head">
+      <span data-i18n="categories">Categories</span>
+      <span id="sideCount"></span>
+    </div>
+    <nav class="cat-list" id="catList"></nav>
+  </aside>
+
+  <main class="content">
+    <div class="toolbar">
+      <div class="muted" id="resultInfo"></div>
+      <div class="tool-row">
+        <button class="btn cz-toggle" id="czToggle" aria-expanded="false" aria-controls="cz">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a10 10 0 1 1 0-20c5.5 0 10 4 10 9a5 5 0 0 1-5 5h-2.2a2 2 0 0 0-1.4 3.4 1.6 1.6 0 0 1-1.4 2.6Z"/><circle cx="7.5" cy="11.5" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="11.5" r="1"/></svg>
+          <span data-i18n="customizer">Customizer</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden></div>
+  </main>
+</div>
+
+<aside class="drawer" id="drawer" hidden aria-label="Icon detail">
+  <div class="drawer-head">
+    <code id="dName">—</code>
+    <button class="icon-btn drawer-close" id="dClose" title="Close">×</button>
+  </div>
+  <div class="preview" id="dPreview"></div>
+  <div class="drawer-body">
+    <div class="ctrl">
+      <div class="ctrl-row"><span data-i18n="size">Size</span><output id="dSizeOut">48</output></div>
+      <input id="dSize" type="range" min="16" max="160" value="48">
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-row"><span data-i18n="stroke">Stroke</span><output id="dStrokeOut">2</output></div>
+      <input id="dStroke" type="range" min="5" max="40" value="20">
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-row"><span data-i18n="color">Color</span><output id="dColorOut">currentColor</output></div>
+      <input id="dColor" type="color" value="#18181b">
+    </div>
+
+    <div class="acts">
+      <button class="btn primary" data-copy="svg" data-i18n="copySvg">Copy SVG</button>
+      <button class="btn" data-copy="jsx" data-i18n="copyJsx">Copy JSX</button>
+      <button class="btn" data-copy="name" data-i18n="copyName">Copy name</button>
+      <button class="btn" data-copy="file" data-i18n="download">Download .svg</button>
+    </div>
+
+    <div class="meta">
+      <div class="meta-row">
+        <span data-i18n="source">Source</span>
+        <div class="chips" id="dSource"></div>
+      </div>
+      <div class="meta-row">
+        <span data-i18n="categories">Categories</span>
+        <div class="chips" id="dCats"></div>
+      </div>
+      <div class="meta-row">
+        <span data-i18n="tags">Tags</span>
+        <div class="chips" id="dTags"></div>
+      </div>
+      <div class="meta-row" id="dAliasRow">
+        <span data-i18n="aliases">Aliases</span>
+        <div class="chips" id="dAliases"></div>
+      </div>
+      <div class="meta-row">
+        <span data-i18n="meta">Meta</span>
+        <div id="dMeta" class="muted"></div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<section class="cz" id="cz" hidden aria-label="Customizer">
+  <div class="cz-head">
+    <h2 data-i18n="customizer">Customizer</h2>
+    <button class="icon-btn cz-reset" id="czReset" data-i18n-title="reset" title="Reset">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>
+    </button>
+  </div>
+
+  <div class="cz-field">
+    <span class="cz-label" data-i18n="color">Color</span>
+    <div class="cz-color">
+      <input type="color" id="czColor" value="#18181b" aria-label="Color">
+      <input type="text" id="czHex" value="#18181b" spellcheck="false" maxlength="7" aria-label="Hex color">
+    </div>
+  </div>
+
+  <div class="cz-field">
+    <div class="cz-row">
+      <span class="cz-label" data-i18n="strokeWidth">Stroke width</span>
+      <output id="czStrokeOut">2px</output>
+    </div>
+    <input type="range" id="czStroke" min="5" max="40" value="20">
+  </div>
+
+  <div class="cz-field">
+    <div class="cz-row">
+      <span class="cz-label" data-i18n="size">Size</span>
+      <output id="czSizeOut">28px</output>
+    </div>
+    <input type="range" id="czSize" min="16" max="96" value="28">
+  </div>
+
+  <div class="cz-field cz-switch-row">
+    <span class="cz-label" data-i18n="nonScaling">Non-scaling stroke</span>
+    <button class="switch" id="czNonScaling" role="switch" aria-checked="false" aria-label="Non-scaling stroke"><span></span></button>
+  </div>
+</section>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="data/catalog.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
